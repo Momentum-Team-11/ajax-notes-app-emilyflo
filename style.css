@@ -1,0 +1,19 @@
+header {
+    font-family: helvetica;
+}
+
+body {
+    font-family: helvetica;
+}
+
+.notes-input {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    align-items: center;
+}
+
+.material-icons-outlined {
+    font-family: 'Material Icons';
+    font-size: 18pt;
+}

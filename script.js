@@ -1,6 +1,6 @@
 const url = 'http://localhost:3000/notes/'
-const notesOutput = document.getElementById('notesOutput')
-const notesForm = document.getElementById('notesForm')
+const notesOutput = document.getElementById('notes-output')
+const notesForm = document.getElementById('notes-input')
 
 // get a list of all notes with a GET request
 
@@ -11,31 +11,55 @@ function myNotes() {
             console.log(data);
         for (let noteObj of data) {
             renderNoteItem(noteObj)
+            console.log(noteObj)
         }
         })
 }
 
-notesForm.addEventListener('submit', function () {
+notesForm.addEventListener('submit', function (event) {
     event.preventDefault()
-    const noteText = document.querySelector('#note-text').value
+    const noteTitle = document.querySelector('#note-title').value
+    const noteBody = document.querySelector('#note-body').value
     fetch(url, {
         method: 'POST',
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
-            item: noteText,
-    }),
+            title: noteTitle,
+            body: noteBody,
+    })
 })
-    .then(r => r.json())
+    .then((res) => res.json())
     .then((data) => {
         renderNoteItem(data)
     })
 })
 
+notesOutput.addEventListener('click', function (event) {
+    if (event.target.classList.contains('delete')) {
+        deleteNote(event.target)
+    }
+})
+
 function renderNoteItem(noteObj) {
-    const itemEl = document.createElement('p')
-    itemEl.p = noteObj.id
-    itemEl.innerHTML = `${noteObj.item}<br>${noteObj.body}`
-    notesOutput.appendChild(itemEl)
+    const noteCard = document.createElement('span')
+    noteCard.id = noteObj.id
+    noteCard.innerHTML = `
+    <h2>${noteObj.title}</h2>
+    <p>${noteObj.body}</p>
+    <span class="material-icons-outlined delete">delete</span>
+    `
+    notesOutput.appendChild(noteCard)
 }
 
-myNotes("why");
+function deleteNote(element) {
+    const noteId = element.parentElement.id
+    fetch(`http://localhost:3000/notes/${noteId}`, {
+        method: 'DELETE',
+    }).then(function () {
+        element.parentElement.remove()
+    })
+}
+
+myNotes();
+
+// moment().calendar(); 

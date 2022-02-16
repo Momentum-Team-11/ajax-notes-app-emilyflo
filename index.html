@@ -4,17 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+  <script src="moment.js" defer></script>
   <script src="script.js" defer></script>
   <title>Notes</title>
-  <header>Notes n'At</header>
+  <header><h1><center>Notes n'At</center></h1></header>
 </head>
 
 <body>
-  <form id="notesForm">
-      <div id="notesOutput">
-      <input type="text" id="note-text" placeholder="Write a note">
-      <input type="submit">
-      </div>
-    </form>
+  <form class="notes-input" id="notes-input">
+    <input type="text" id="note-title" placeholder="What's this note about?">
+    <textarea id="note-body" placeholder="Jot down your note here" rows="15" cols="30"></textarea>
+    <button type="submit">file away</button>
+  </form>
+  <div class="notes" id="notes-output">
+  </div>
 </body>
 </html>
